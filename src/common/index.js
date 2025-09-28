@@ -1,4 +1,5 @@
-const backendDomin = "http://localhost:8080"
+// const backendDomin = "http://localhost:8080" development phase only
+const backendDomin="https://ecommercebackend-xsiz.onrender.com"
 
 const SummaryApi = {
     signUP : {
