@@ -23,7 +23,7 @@ const UploadProduct = ({
   })
   const [openFullScreenImage,setOpenFullScreenImage] = useState(false)
   const [fullScreenImage,setFullScreenImage] = useState("")
-
+const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e)=>{
       const { name, value} = e.target
@@ -67,7 +67,9 @@ const UploadProduct = ({
   {/**upload product */}
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    
+    setLoading(true); // start loading
+
+
     const response = await fetch(SummaryApi.uploadProduct.url,{
       method : SummaryApi.uploadProduct.method,
       credentials : 'include',
@@ -76,6 +78,7 @@ const UploadProduct = ({
       },
       body : JSON.stringify(data)
     })
+    setLoading(false); // stop loading
 
     const responseData = await response.json()
 
