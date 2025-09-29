@@ -272,8 +272,8 @@ const AdminEditProduct = ({ onClose, productData, fetchdata }) => {
             Update Product
           </button>
 
-          <button  type="button" className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700" onClick={handleDeleteProduct}>
-            Delete Product
+          <button  type="button" className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700" onClick={handleDeleteProduct} disabled={true}>
+            Delete Product(under development)
           </button>
         </form>
       </div>
