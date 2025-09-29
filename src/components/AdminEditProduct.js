@@ -60,28 +60,27 @@ const AdminEditProduct = ({ onClose, productData, fetchdata }) => {
   };
 
   //delete product
-  const handleDeleteProduct = async () => {
-    const response = await fetch(SummaryApi.deleteProduct.url, {
-      method: SummaryApi.deleteProduct.method,
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ productId: productData._id }),
-    });
+const handleDeleteProduct = async () => {
+  const response = await fetch(SummaryApi.deleteProduct.url, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ productId: productData._id }), // send ID in body
+  });
 
-    const responseData = await response.json();
-    
-    if (responseData.success) {     
-      toast.success(responseData?.message);
-      onClose();
-      fetchdata();
-    }
+  const responseData = await response.json();
 
-    if (responseData.error) {
-      toast.error(responseData?.message);
-    }
+  if (responseData.success) {
+    toast.success(responseData.message);
+    onClose();
+    fetchdata();
+  } else {
+    toast.error(responseData.message);
   }
+};
+
 
   {
     /**upload product */
@@ -272,8 +271,8 @@ const AdminEditProduct = ({ onClose, productData, fetchdata }) => {
             Update Product
           </button>
 
-          <button  type="button" className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700" onClick={handleDeleteProduct} disabled={true}>
-            Delete Product(under development)
+          <button  type="button" className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700" onClick={handleDeleteProduct} >
+            Delete Product
           </button>
         </form>
       </div>
