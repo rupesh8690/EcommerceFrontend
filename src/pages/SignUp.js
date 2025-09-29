@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import imageTobase64 from "../helpers/imageTobase64";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
-import { SignUp, Loader } from "lucide-react";
+import { LogIn, Loader } from "lucide-react";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -182,8 +182,8 @@ const SignUp = () => {
                 </>
               ) : (
                 <>
-                  <SignUp className="mr-2 h-5 w-5" aria-hidden="true" />
-                  Upload Product
+                  <LogIn className="mr-2 h-5 w-5" aria-hidden="true" />
+                  Sign Up
                 </>
               )}
             </button>
