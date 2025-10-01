@@ -2,6 +2,11 @@ import React from 'react'
 import { useState } from 'react'
 const ForgotPassowrd = () => {
   const [email,setEmail]=useState("");
+  
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    //add api later
+  }
 
   
   return (
