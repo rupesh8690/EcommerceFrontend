@@ -1,11 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
 import SummaryApi from '../common';
+import { toast } from 'react-toastify';
+
 const ForgotPassowrd = () => {
   const [email,setEmail]=useState("");
+  const [loading,setLoading]=useState(false);
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
+    setLoading(true);
     //add api later
     const dataResponse= await fetch(SummaryApi.forgotPassword.url,{
       method: SummaryApi.forgotPassword.method,
@@ -15,6 +19,14 @@ const ForgotPassowrd = () => {
       },
       body: JSON.stringify({email}),
     });
+    setLoading(false);
+    const res= await dataResponse.json();
+    if(res.success){
+      toast.success(res.message);
+      setEmail("");
+    }else{
+      toast.error(res.message);
+    }
 
     
 
