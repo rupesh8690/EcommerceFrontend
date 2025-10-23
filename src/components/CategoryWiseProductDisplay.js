@@ -24,6 +24,7 @@ const CategroyWiseProductDisplay = ({category, heading}) => {
 
     const fetchData = async() =>{
         setLoading(true)
+    
         const categoryProduct = await fetchCategoryWiseProduct(category)
         setLoading(false)
 

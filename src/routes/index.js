@@ -11,6 +11,14 @@ import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
 import SearchProduct from '../pages/SearchProduct'
+import ResetPassword from '../pages/resetPassword'
+import PurchaseCancel from '../pages/purchaseCancel'
+import PurchaseSuccessPage from '../pages/purchaseSuccess'
+import UserPanel from '../pages/UserPanel'
+import UserProfile from '../pages/UserProfile'
+import PurchaseHistory from '../pages/PurchaseHistory'
+import AnalyticsTab from '../pages/AnalyticsTab'
+import AllOrders from '../pages/AllOrders'
 
 const router = createBrowserRouter([
     {
@@ -28,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path : "forgot-password",
                 element : <ForgotPassowrd/>
+            },
+            {
+                path : "reset-password/:token",
+                element : <ResetPassword/>
             },
             {
                 path : "sign-up",
@@ -50,6 +62,19 @@ const router = createBrowserRouter([
                 element : <SearchProduct/>
             },
             {
+                path : "purchase-cancel",
+                element : <PurchaseCancel/>
+            },
+            {
+                path : "purchase-success",
+                element : <PurchaseSuccessPage/>
+
+            },
+            
+
+            
+           
+            {
                 path : "admin-panel",
                 element : <AdminPanel/>,
                 children : [
@@ -60,6 +85,27 @@ const router = createBrowserRouter([
                     {
                         path : "all-products",
                         element : <AllProducts/>
+                    },{
+                        path : "total-sales",
+                        element : <AnalyticsTab/>
+                    },{
+                        path : "add-orders",
+                        element : <AllOrders/>
+                    }
+                ]
+            },
+            {
+                path:"user-panel",
+                element:<UserPanel/>,
+                children:[
+                    {
+                        path:"my-profile",
+                        element:<UserProfile/>
+                
+                    },
+                    {
+                        path:"purchase-history",
+                        element:<PurchaseHistory/>
                     }
                 ]
             },
