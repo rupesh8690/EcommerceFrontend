@@ -6,6 +6,8 @@ const CategoryList = () => {
     const [categoryProduct,setCategoryProduct] = useState([])
     const [loading,setLoading] = useState(false)
 
+    
+
     const categoryLoading = new Array(13).fill(null)
 
     const fetchCategoryProduct = async() =>{

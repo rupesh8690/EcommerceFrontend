@@ -32,6 +32,7 @@ const FrequentlyBought = ({ productId, heading }) => {
           throw new Error(`HTTP error! status: ${response.status}`);
 
         const data = await response.json();
+        console.log("Frequently Bought Together data:", data);
         setRecommendations(data);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
@@ -92,12 +93,12 @@ const FrequentlyBought = ({ productId, heading }) => {
                     {product.recommended_name}
                   </h2>
                   <p className="capitalize text-slate-500">
-                    {product.category || ""}
+                    {product.recommended_category || ""}
                   </p>
                   <div className="flex gap-3">
-                    {product.sellingPrice && (
+                    {product.recommended_price && (
                       <p className="text-red-600 font-medium">
-                        {displayINRCurrency(product.sellingPrice)}
+                        {displayINRCurrency(product.recommended_price)}
                       </p>
                     )}
                     {product.price && (

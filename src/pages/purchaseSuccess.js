@@ -38,7 +38,7 @@ const PurchaseSuccessPage = () => {
         setError(err.message);
       } finally {
         setIsProcessing(false);
-         window.location.href = "/";
+        //  window.location.href = "/";
       }
     };
 

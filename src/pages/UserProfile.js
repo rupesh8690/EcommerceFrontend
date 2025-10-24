@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaRegCircleUser, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import imageTobase64 from "../helpers/imageTobase64";
 import { setUserDetails } from "../store/userSlice";
-  import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SummaryApi from "../common";
 const UserProfile = () => {
   const user = useSelector((state) => state?.user?.user);
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // Local state for form
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
-    password: "",
-    confirmPassword: "",
+    address: user?.address || "",
+    phone: user?.phone || "",
+    state: user?.state || "",
     profilePic: user?.profilePic || "",
   });
 
@@ -27,24 +28,24 @@ const UserProfile = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogout = async () => {
-    const fetchData = await fetch(SummaryApi.logout_user.url, {
-      method: SummaryApi.logout_user.method,
-      credentials: "include",
-    });
+  // const handleLogout = async () => {
+  //   const fetchData = await fetch(SummaryApi.logout_user.url, {
+  //     method: SummaryApi.logout_user.method,
+  //     credentials: "include",
+  //   });
 
-    const data = await fetchData.json();
+  //   const data = await fetchData.json();
 
-    if (data.success) {
-      toast.success(data.message);
-      dispatch(setUserDetails(null));
-      navigate("/");
-    }
+  //   if (data.success) {
+  //     toast.success(data.message);
+  //     dispatch(setUserDetails(null));
+  //     navigate("/");
+  //   }
 
-    if (data.error) {
-      toast.error(data.message);
-    }
-  };
+  //   if (data.error) {
+  //     toast.error(data.message);
+  //   }
+  // };
 
   const handleProfilePicUpload = async (e) => {
     const file = e.target.files[0];
@@ -62,13 +63,9 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (formData.password && formData.password !== formData.confirmPassword) {
-      toast.error("Password and Confirm Password do not match");
-      setLoading(false);
-      return;
-    }
+   
 
-    if (formData.password === formData.confirmPassword) {
+    try{
       const dataResponse = await fetch(SummaryApi.updateProfile.url, {
         method: SummaryApi.updateProfile.method,
         credentials: "include",
@@ -81,12 +78,15 @@ const UserProfile = () => {
       const dataApi = await dataResponse.json();
       if (dataApi.success) {
         toast.success(dataApi.message);
-        handleLogout();
+        // handleLogout();
       }
       if (dataApi.error) {
         toast.error(dataApi.message);
         setLoading(false);
       }
+    }catch(error){
+      setLoading(false);
+      toast.error("Something went wrong while updating profile");
     }
   };
 
@@ -137,45 +137,36 @@ const UserProfile = () => {
               className="w-full p-2 rounded bg-gray-100 outline-none cursor-not-allowed"
             />
           </div>
-
           <div>
-            <label className="block mb-1">Password</label>
-            <div className="flex items-center bg-gray-100 rounded p-2">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="w-full outline-none bg-transparent"
-              />
-              <span
-                className="ml-2 cursor-pointer text-gray-500"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
+            <label className="block mb-1">Phone</label>
+            <input
+              type="number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+                className="w-full p-2 rounded bg-gray-100 outline-none"
+            />
           </div>
-
           <div>
-            <label className="block mb-1">Confirm Password</label>
-            <div className="flex items-center bg-gray-100 rounded p-2">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                required
-                onChange={handleChange}
-                className="w-full outline-none bg-transparent"
-              />
-              <span
-                className="ml-2 cursor-pointer text-gray-500"
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
-              >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
+            <label className="block mb-1">State</label>
+            <input
+              type="text"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+          className="w-full p-2 rounded bg-gray-100 outline-none"
+            />
+          </div>
+          <div>
+            <label className="block mb-1">Address</label>
+            <textarea
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              rows={3}
+              className="w-full h-full  bg-transparent resize-none"
+            />
           </div>
 
           <button

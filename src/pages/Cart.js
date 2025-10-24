@@ -34,7 +34,7 @@ const Cart = () => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ products }), // ✅ Send products to backend
+        body: JSON.stringify({ products }), //  Send products to backend
       });
 
       const responseData = await response.json();
