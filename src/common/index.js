@@ -1,8 +1,8 @@
 import { Check } from "lucide-react";
 import FrequentlyBought from "../components/FrequentlyBought";
 
-// const backendDomin = "http://localhost:8080"; //development phase only
-const backendDomin="https://ecommercebackend-xsiz.onrender.com"
+const backendDomin = "http://localhost:8080"; //development phase only
+// const backendDomin="https://ecommercebackend-xsiz.onrender.com"
 
 const SummaryApi = {
   signUP: {
